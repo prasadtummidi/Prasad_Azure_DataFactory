@@ -65,8 +65,7 @@
 									"referenceName": "Inputdata",
 									"type": "DatasetReference",
 									"parameters": {
-										"foldername": "inputdata",
-										"filename": "*.csv"
+										"foldername": "inputdata"
 									}
 								}
 							],
@@ -173,8 +172,7 @@
 						"referenceName": "Inputdata",
 						"type": "DatasetReference",
 						"parameters": {
-							"foldername": "inputdata",
-							"filename": "*.csv"
+							"foldername": "inputdata"
 						}
 					}
 				],

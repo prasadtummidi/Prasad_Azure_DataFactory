@@ -5,7 +5,7 @@
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
 			"server": "prasad-sql-server.database.windows.net",
-			"database": "master",
+			"database": "prasad-sql-database",
 			"encrypt": "mandatory",
 			"trustServerCertificate": false,
 			"authenticationType": "SystemAssignedManagedIdentity"

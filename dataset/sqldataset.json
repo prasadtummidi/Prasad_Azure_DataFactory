@@ -1,0 +1,40 @@
+{
+	"name": "sqldataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"tablename": {
+				"type": "string",
+				"defaultValue": "emp"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "emp_name",
+				"type": "nvarchar"
+			},
+			{
+				"name": "emp_villege",
+				"type": "nvarchar"
+			},
+			{
+				"name": "emp_dob",
+				"type": "date"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "employee"
+		}
+	}
+}

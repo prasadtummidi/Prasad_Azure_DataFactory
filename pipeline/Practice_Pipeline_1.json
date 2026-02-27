@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Getfilenames').output.itemName",
+						"value": "@activity('Getfilenames').output.childItems",
 						"type": "Expression"
 					},
 					"isSequential": true,
@@ -100,8 +100,7 @@
 						"referenceName": "Inputdata",
 						"type": "DatasetReference",
 						"parameters": {
-							"foldername": "inputdata",
-							"filename": "*.csv"
+							"foldername": "inputdata"
 						}
 					},
 					"fieldList": [

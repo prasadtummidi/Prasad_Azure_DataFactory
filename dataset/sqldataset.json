@@ -34,7 +34,10 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "employee"
+			"table": {
+				"value": "@dataset().tablename",
+				"type": "Expression"
+			}
 		}
 	}
 }

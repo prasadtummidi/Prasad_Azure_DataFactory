@@ -1,5 +1,5 @@
 {
-	"name": "Practice_Pipeline_1",
+	"name": "Practice_Pipeline",
 	"properties": {
 		"activities": [
 			{
@@ -158,6 +158,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {

@@ -15,10 +15,10 @@
 			"value": "prasad-sql-database"
 		},
 		"trigger1_properties_copy_parameter_parameters_foname": {
-			"value": "@triggerBody().foldername"
+			"value": "@trigger().outputs.body.folderPath"
 		},
 		"trigger1_properties_copy_parameter_parameters_fname": {
-			"value": "@triggerBody().filename"
+			"value": "@trigger().outputs.body.fileName"
 		},
 		"trigger1_properties_typeProperties_scope": {
 			"value": "/subscriptions/a2802da5-d374-447e-840f-5a4261000cb7/resourceGroups/Prasad-Development/providers/Microsoft.Storage/storageAccounts/prasadstoragaccount"

@@ -1,0 +1,25 @@
+{
+	"name": "Eventbasedtrigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "copy_parameter",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/prasadcontainer/blobs/inputdata/emp",
+			"blobPathEndsWith": ".csv",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/a2802da5-d374-447e-840f-5a4261000cb7/resourceGroups/Prasad-Development/providers/Microsoft.Storage/storageAccounts/prasadstoragaccount",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

@@ -21,11 +21,11 @@
 		},
 		"trigger1_properties_copy_parameter_parameters_foname": {
 			"type": "string",
-			"defaultValue": "@trigger().outputs.body.folderPath"
+			"defaultValue": "@replace(trigger().outputs.body.folderPath,'prasadcontainer/','')"
 		},
 		"trigger1_properties_copy_parameter_parameters_fname": {
 			"type": "string",
-			"defaultValue": "@trigger().outputs.body.fileName"
+			"defaultValue": "@replace(trigger().outputs.body.fileName,'prasadcontainer/','')"
 		},
 		"trigger1_properties_typeProperties_scope": {
 			"type": "string",

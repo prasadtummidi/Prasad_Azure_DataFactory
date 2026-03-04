@@ -3,18 +3,7 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
-		"pipelines": [
-			{
-				"pipelineReference": {
-					"referenceName": "copy_parameter",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"foname": "@trigger().body.foldername",
-					"fname": "@trigger().body.filename"
-				}
-			}
-		],
+		"pipelines": [],
 		"type": "BlobEventsTrigger",
 		"typeProperties": {
 			"blobPathBeginsWith": "/prasadcontainer/blobs/inputdata/emp",

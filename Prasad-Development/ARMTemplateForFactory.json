@@ -771,7 +771,7 @@
 				],
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
-					"blobPathBeginsWith": "/prasadcontainer/blobs/inputdata/emp",
+					"blobPathBeginsWith": "/prasadcontainer/blobs/inputdata/",
 					"blobPathEndsWith": ".csv",
 					"ignoreEmptyBlobs": true,
 					"scope": "[parameters('trigger1_properties_typeProperties_scope')]",

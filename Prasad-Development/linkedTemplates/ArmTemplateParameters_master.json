@@ -5,6 +5,24 @@
 		"factoryName": {
 			"value": "Prasad-Development"
 		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"value": "prasad-sql-server.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"value": "prasad-sql-database"
+		},
+		"trigger1_properties_copy_parameter_parameters_foname": {
+			"value": "@triggerBody().foldername"
+		},
+		"trigger1_properties_copy_parameter_parameters_fname": {
+			"value": "@triggerBody().filename"
+		},
+		"trigger1_properties_typeProperties_scope": {
+			"value": "/subscriptions/a2802da5-d374-447e-840f-5a4261000cb7/resourceGroups/Prasad-Development/providers/Microsoft.Storage/storageAccounts/prasadstoragaccount"
+		},
 		"containerUri": {
 			"value": ""
 		},

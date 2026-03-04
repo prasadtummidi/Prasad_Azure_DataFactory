@@ -10,8 +10,8 @@
 					"type": "PipelineReference"
 				},
 				"parameters": {
-					"foname": "@trigger().outputs.body.folderPath",
-					"fname": "@trigger().outputs.body.fileName"
+					"foname": "@replace(trigger().outputs.body.folderPath,'prasadcontainer/','')",
+					"fname": "@replace(trigger().outputs.body.fileName,'prasadcontainer/','')"
 				}
 			}
 		],

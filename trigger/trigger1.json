@@ -6,18 +6,18 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "copy_parameter",
+					"referenceName": "PL_schedule-trigger",
 					"type": "PipelineReference"
 				},
 				"parameters": {
-					"foname": "@replace(trigger().outputs.body.folderPath,'prasadcontainer/','')",
-					"fname": "@replace(trigger().outputs.body.fileName,'prasadcontainer/','')"
+					"foname": "@trigger().outputs.body.foldername",
+					"fname": "@trigger().outputs.body.filename"
 				}
 			}
 		],
 		"type": "BlobEventsTrigger",
 		"typeProperties": {
-			"blobPathBeginsWith": "/prasadcontainer/blobs/inputdata/",
+			"blobPathBeginsWith": "/prasadcontainer/blobs/inputdata/emp",
 			"blobPathEndsWith": ".csv",
 			"ignoreEmptyBlobs": true,
 			"scope": "/subscriptions/a2802da5-d374-447e-840f-5a4261000cb7/resourceGroups/Prasad-Development/providers/Microsoft.Storage/storageAccounts/prasadstoragaccount",

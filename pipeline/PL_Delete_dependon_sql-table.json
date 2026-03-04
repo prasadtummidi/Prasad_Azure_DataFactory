@@ -1,5 +1,5 @@
 {
-	"name": "Delete_Pipeline",
+	"name": "PL_Delete_dependon_sql-table",
 	"properties": {
 		"activities": [
 			{

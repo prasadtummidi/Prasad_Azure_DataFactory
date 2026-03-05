@@ -38,7 +38,7 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "$['customers'][0]['firstname']"
+									"path": "$['firstname']"
 								},
 								"sink": {
 									"name": "firstname",
@@ -47,7 +47,7 @@
 							},
 							{
 								"source": {
-									"path": "$['customers'][0]['lastname']"
+									"path": "$['lastname']"
 								},
 								"sink": {
 									"name": "lastname",
@@ -56,7 +56,7 @@
 							},
 							{
 								"source": {
-									"path": "$['customers'][0]['village']"
+									"path": "$['village']"
 								},
 								"sink": {
 									"name": "villege",
@@ -65,14 +65,15 @@
 							},
 							{
 								"source": {
-									"path": "$['customers'][0]['dob']"
+									"path": "$['dob']"
 								},
 								"sink": {
 									"name": "dob",
 									"type": "Date"
 								}
 							}
-						]
+						],
+						"mapComplexValuesToString": true
 					}
 				},
 				"inputs": [

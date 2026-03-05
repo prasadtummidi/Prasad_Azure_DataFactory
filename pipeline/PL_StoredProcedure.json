@@ -106,7 +106,7 @@
 									"referenceName": "sqldataset",
 									"type": "DatasetReference",
 									"parameters": {
-										"tablename": "dbo.customer_region"
+										"tablename": "customer_region"
 									}
 								}
 							]

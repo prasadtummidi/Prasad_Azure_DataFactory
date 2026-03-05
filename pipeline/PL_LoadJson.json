@@ -1,0 +1,96 @@
+{
+	"name": "PL_LoadJson",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['customers'][0]['firstname']"
+								},
+								"sink": {
+									"name": "firstname",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['customers'][0]['lastname']"
+								},
+								"sink": {
+									"name": "lastname",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['customers'][0]['village']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['customers'][0]['dob']"
+								},
+								"sink": {
+									"name": "dob",
+									"type": "Date"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Json_inputdataset",
+						"type": "DatasetReference",
+						"parameters": {
+							"foldername": "inputdata"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "sqldataset",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "customer_json"
+						}
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}

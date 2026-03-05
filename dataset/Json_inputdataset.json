@@ -1,0 +1,51 @@
+{
+	"name": "Json_inputdataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"foldername": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": {
+					"value": "@dataset().foldername",
+					"type": "Expression"
+				},
+				"fileSystem": "prasadcontainer"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"customers": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"firstname": {
+								"type": "string"
+							},
+							"lastname": {
+								"type": "string"
+							},
+							"village": {
+								"type": "string"
+							},
+							"dob": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

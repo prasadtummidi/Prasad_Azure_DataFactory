@@ -6,7 +6,7 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "PL_schedule-trigger",
+					"referenceName": "PL_storage-event-trigger",
 					"type": "PipelineReference"
 				},
 				"parameters": {

@@ -1,5 +1,5 @@
 {
-	"name": "PL_schedule-trigger",
+	"name": "PL_storage-event-trigger",
 	"properties": {
 		"activities": [
 			{

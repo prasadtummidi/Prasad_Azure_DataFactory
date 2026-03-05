@@ -14,11 +14,11 @@
 		"AzureSqlDatabase1_properties_typeProperties_database": {
 			"value": "prasad-sql-database"
 		},
-		"trigger1_properties_copy_parameter_parameters_foname": {
-			"value": "@replace(trigger().outputs.body.folderPath,'prasadcontainer/','')"
+		"trigger1_properties_PL_schedule-trigger_parameters_foname": {
+			"value": "@trigger().outputs.body.foldername"
 		},
-		"trigger1_properties_copy_parameter_parameters_fname": {
-			"value": "@replace(trigger().outputs.body.fileName,'prasadcontainer/','')"
+		"trigger1_properties_PL_schedule-trigger_parameters_fname": {
+			"value": "@trigger().outputs.body.filename"
 		},
 		"trigger1_properties_typeProperties_scope": {
 			"value": "/subscriptions/a2802da5-d374-447e-840f-5a4261000cb7/resourceGroups/Prasad-Development/providers/Microsoft.Storage/storageAccounts/prasadstoragaccount"

@@ -19,13 +19,13 @@
 			"type": "string",
 			"defaultValue": "prasad-sql-database"
 		},
-		"trigger1_properties_copy_parameter_parameters_foname": {
+		"trigger1_properties_PL_schedule-trigger_parameters_foname": {
 			"type": "string",
-			"defaultValue": "@replace(trigger().outputs.body.folderPath,'prasadcontainer/','')"
+			"defaultValue": "@trigger().outputs.body.foldername"
 		},
-		"trigger1_properties_copy_parameter_parameters_fname": {
+		"trigger1_properties_PL_schedule-trigger_parameters_fname": {
 			"type": "string",
-			"defaultValue": "@replace(trigger().outputs.body.fileName,'prasadcontainer/','')"
+			"defaultValue": "@trigger().outputs.body.filename"
 		},
 		"trigger1_properties_typeProperties_scope": {
 			"type": "string",
@@ -67,11 +67,11 @@
 					"AzureSqlDatabase1_properties_typeProperties_database": {
 						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_database')]"
 					},
-					"trigger1_properties_copy_parameter_parameters_foname": {
-						"value": "[parameters('trigger1_properties_copy_parameter_parameters_foname')]"
+					"trigger1_properties_PL_schedule-trigger_parameters_foname": {
+						"value": "[parameters('trigger1_properties_PL_schedule-trigger_parameters_foname')]"
 					},
-					"trigger1_properties_copy_parameter_parameters_fname": {
-						"value": "[parameters('trigger1_properties_copy_parameter_parameters_fname')]"
+					"trigger1_properties_PL_schedule-trigger_parameters_fname": {
+						"value": "[parameters('trigger1_properties_PL_schedule-trigger_parameters_fname')]"
 					},
 					"trigger1_properties_typeProperties_scope": {
 						"value": "[parameters('trigger1_properties_typeProperties_scope')]"

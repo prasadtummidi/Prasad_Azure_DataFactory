@@ -19,13 +19,13 @@
 			"type": "string",
 			"defaultValue": "prasad-sql-database"
 		},
-		"trigger1_properties_copy_parameter_parameters_foname": {
+		"trigger1_properties_PL_schedule-trigger_parameters_foname": {
 			"type": "string",
-			"defaultValue": "@replace(trigger().outputs.body.folderPath,'prasadcontainer/','')"
+			"defaultValue": "@trigger().outputs.body.foldername"
 		},
-		"trigger1_properties_copy_parameter_parameters_fname": {
+		"trigger1_properties_PL_schedule-trigger_parameters_fname": {
 			"type": "string",
-			"defaultValue": "@replace(trigger().outputs.body.fileName,'prasadcontainer/','')"
+			"defaultValue": "@trigger().outputs.body.filename"
 		},
 		"trigger1_properties_typeProperties_scope": {
 			"type": "string",
@@ -37,7 +37,7 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/Delete_Pipeline')]",
+			"name": "[concat(parameters('factoryName'), '/PL_Delete_dependon_sql-table')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -148,7 +148,97 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Practice_Pipeline')]",
+			"name": "[concat(parameters('factoryName'), '/PL_Manual-parameter')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"wildcardFileName": "*.csv",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".csv"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "Inputdata",
+								"type": "DatasetReference",
+								"parameters": {
+									"foldername": {
+										"value": "@pipeline().parameters.foldername",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "Archivedataset",
+								"type": "DatasetReference",
+								"parameters": {
+									"foldername": "archivedata"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"foldername": {
+						"type": "string"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/Inputdata')]",
+				"[concat(variables('factoryId'), '/datasets/Archivedataset')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PL_copyfilesusing_metadata')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -403,7 +493,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/copy_parameter')]",
+			"name": "[concat(parameters('factoryName'), '/PL_schedule-trigger')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -435,13 +525,12 @@
 							"sink": {
 								"type": "DelimitedTextSink",
 								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings",
-									"copyBehavior": "PreserveHierarchy"
+									"type": "AzureBlobStorageWriteSettings"
 								},
 								"formatSettings": {
 									"type": "DelimitedTextWriteSettings",
 									"quoteAllText": true,
-									"fileExtension": ".csv"
+									"fileExtension": ".txt"
 								}
 							},
 							"enableStaging": false,
@@ -760,18 +849,18 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "copy_parameter",
+							"referenceName": "PL_schedule-trigger",
 							"type": "PipelineReference"
 						},
 						"parameters": {
-							"foname": "[parameters('trigger1_properties_copy_parameter_parameters_foname')]",
-							"fname": "[parameters('trigger1_properties_copy_parameter_parameters_fname')]"
+							"foname": "[parameters('trigger1_properties_PL_schedule-trigger_parameters_foname')]",
+							"fname": "[parameters('trigger1_properties_PL_schedule-trigger_parameters_fname')]"
 						}
 					}
 				],
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
-					"blobPathBeginsWith": "/prasadcontainer/blobs/inputdata/",
+					"blobPathBeginsWith": "/prasadcontainer/blobs/inputdata/emp",
 					"blobPathEndsWith": ".csv",
 					"ignoreEmptyBlobs": true,
 					"scope": "[parameters('trigger1_properties_typeProperties_scope')]",
@@ -781,7 +870,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/copy_parameter')]"
+				"[concat(variables('factoryId'), '/pipelines/PL_schedule-trigger')]"
 			]
 		},
 		{
@@ -790,6 +879,134 @@
 			"apiVersion": "2018-06-01",
 			"properties": {},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PL_StoredProcedure')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Lookup1",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "select region from dbo.region",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "sqldataset",
+								"type": "DatasetReference",
+								"parameters": {
+									"tablename": "emp"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup1').output.value",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy data1",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "AzureSqlSource",
+											"sqlReaderStoredProcedureName": "[[dbo].[load_region]",
+											"storedProcedureParameters": {
+												"region": {
+													"type": "String",
+													"value": {
+														"value": "@item().Region",
+														"type": "Expression"
+													}
+												}
+											},
+											"queryTimeout": "02:00:00",
+											"partitionOption": "None"
+										},
+										"sink": {
+											"type": "AzureSqlSink",
+											"writeBehavior": "insert",
+											"sqlWriterUseTableLock": false
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "sqldataset",
+											"type": "DatasetReference",
+											"parameters": {
+												"tablename": "emp"
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "sqldataset",
+											"type": "DatasetReference",
+											"parameters": {
+												"tablename": "customer_region"
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/sqldataset')]"
+			]
 		}
 	]
 }

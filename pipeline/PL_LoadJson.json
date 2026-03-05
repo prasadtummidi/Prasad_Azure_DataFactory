@@ -57,6 +57,10 @@
 							{
 								"source": {
 									"path": "$['customers'][0]['village']"
+								},
+								"sink": {
+									"name": "villege",
+									"type": "String"
 								}
 							},
 							{

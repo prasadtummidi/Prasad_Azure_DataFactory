@@ -22,8 +22,7 @@
 							"foldername": {
 								"value": "@pipeline().parameters.foldername",
 								"type": "Expression"
-							},
-							"filename": "*.csv"
+							}
 						}
 					},
 					"fieldList": [
@@ -43,7 +42,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Get Metadata1",
+						"activity": "Filter1",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -171,6 +170,29 @@
 							}
 						}
 					]
+				}
+			},
+			{
+				"name": "Filter1",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "Get Metadata1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Metadata1').output.childItems",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@endswith(item(),'*.csv')",
+						"type": "Expression"
+					}
 				}
 			}
 		],

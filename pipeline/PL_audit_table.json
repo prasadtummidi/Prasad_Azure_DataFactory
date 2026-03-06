@@ -22,7 +22,8 @@
 							"foldername": {
 								"value": "@pipeline().parameters.foldername",
 								"type": "Expression"
-							}
+							},
+							"filename": "*.csv"
 						}
 					},
 					"fieldList": [
@@ -190,7 +191,7 @@
 						"type": "Expression"
 					},
 					"condition": {
-						"value": "@endswith(item(),'*.csv')",
+						"value": "@endswith(item().name,'*.csv')",
 						"type": "Expression"
 					}
 				}

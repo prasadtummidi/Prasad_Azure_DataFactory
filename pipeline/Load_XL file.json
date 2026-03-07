@@ -1,0 +1,37 @@
+{
+	"name": "Load_XL file",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.pipeline_sheetname",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Wait1",
+							"type": "Wait",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": 1
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"pipeline_sheetname": {
+				"type": "array",
+				"defaultValue": "[{'sheetname':'prasad},{'sheetname':'haritha}]"
+			}
+		},
+		"annotations": []
+	}
+}

@@ -28,7 +28,7 @@
 				},
 				"fileSystem": "prasadcontainer"
 			},
-			"columnDelimiter": ",",
+			"columnDelimiter": ";",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""

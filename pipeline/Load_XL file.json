@@ -29,7 +29,14 @@
 		"parameters": {
 			"pipeline_sheetname": {
 				"type": "array",
-				"defaultValue": "[{'sheetname':'prasad},{'sheetname':'haritha}]"
+				"defaultValue": [
+					{
+						"sheetname": "prasad"
+					},
+					{
+						"sheetname": "haritha"
+					}
+				]
 			}
 		},
 		"annotations": []

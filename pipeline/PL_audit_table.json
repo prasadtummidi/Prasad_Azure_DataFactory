@@ -164,7 +164,7 @@
 										"type": "String"
 									},
 									"records_count": {
-										"value": "10",
+										"value": "@activity('CopyData').output.rowsCopied",
 										"type": "Int32"
 									}
 								}

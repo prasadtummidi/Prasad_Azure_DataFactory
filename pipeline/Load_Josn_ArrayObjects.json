@@ -30,7 +30,9 @@
 					"sink": {
 						"type": "AzureSqlSink",
 						"writeBehavior": "insert",
-						"sqlWriterUseTableLock": false
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
 					"translator": {
@@ -38,7 +40,23 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "$['students'][0]['id']"
+									"path": "$['school']['name']"
+								},
+								"sink": {
+									"name": "name"
+								}
+							},
+							{
+								"source": {
+									"path": "$['school']['location']"
+								},
+								"sink": {
+									"name": "location"
+								}
+							},
+							{
+								"source": {
+									"path": "$['school']['students'][0]['id']"
 								},
 								"sink": {
 									"name": "id",
@@ -47,22 +65,23 @@
 							},
 							{
 								"source": {
-									"path": "$['students'][0]['name']"
+									"path": "$['school']['students'][0]['name']"
+								},
+								"sink": {
+									"name": "name"
 								}
 							},
 							{
 								"source": {
-									"path": "$['students'][0]['age']"
+									"path": "$['school']['students'][0]['subjects'][0]"
+								},
+								"sink": {
+									"name": "subjects"
 								}
 							},
 							{
 								"source": {
-									"path": "$['students'][0]['grade']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['teachers'][0]['id']"
+									"path": "$['school']['teachers'][0]['id']"
 								},
 								"sink": {
 									"name": "id",
@@ -71,31 +90,21 @@
 							},
 							{
 								"source": {
-									"path": "$['teachers'][0]['name']"
+									"path": "$['school']['teachers'][0]['name']"
+								},
+								"sink": {
+									"name": "name"
 								}
 							},
 							{
 								"source": {
-									"path": "$['teachers'][0]['subject']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['courses'][0]['course_id']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['courses'][0]['course_name']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['courses'][0]['duration']"
+									"path": "$['school']['teachers'][0]['classes'][0]"
+								},
+								"sink": {
+									"name": "classes"
 								}
 							}
-						],
-						"mapComplexValuesToString": true
+						]
 					}
 				},
 				"inputs": [

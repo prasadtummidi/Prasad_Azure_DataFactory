@@ -25,22 +25,53 @@
 		"schema": {
 			"type": "object",
 			"properties": {
-				"customers": {
-					"type": "array",
-					"items": {
-						"type": "object",
-						"properties": {
-							"firstname": {
-								"type": "string"
-							},
-							"lastname": {
-								"type": "string"
-							},
-							"village": {
-								"type": "string"
-							},
-							"dob": {
-								"type": "string"
+				"school": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string"
+						},
+						"location": {
+							"type": "string"
+						},
+						"students": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "integer"
+									},
+									"name": {
+										"type": "string"
+									},
+									"subjects": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									}
+								}
+							}
+						},
+						"teachers": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "integer"
+									},
+									"name": {
+										"type": "string"
+									},
+									"classes": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									}
+								}
 							}
 						}
 					}

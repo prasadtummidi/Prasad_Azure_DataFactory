@@ -1,0 +1,123 @@
+{
+	"name": "Load_multiline_json",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "students.json",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['students'][0]['id']"
+								},
+								"sink": {
+									"name": "id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['students'][0]['name']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['students'][0]['age']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['students'][0]['grade']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['teachers'][0]['id']"
+								},
+								"sink": {
+									"name": "id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['teachers'][0]['name']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['teachers'][0]['subject']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['courses'][0]['course_id']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['courses'][0]['course_name']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['courses'][0]['duration']"
+								}
+							}
+						],
+						"mapComplexValuesToString": true
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Json_inputdataset",
+						"type": "DatasetReference",
+						"parameters": {
+							"foldername": "inputdata"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "sqldataset",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "students_json"
+						}
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}

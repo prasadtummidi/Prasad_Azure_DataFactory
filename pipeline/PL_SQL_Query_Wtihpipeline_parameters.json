@@ -59,8 +59,7 @@
 						"referenceName": "Archivedataset",
 						"type": "DatasetReference",
 						"parameters": {
-							"foldername": "archivedata",
-							"filename": "India"
+							"foldername": "archivedata"
 						}
 					}
 				]

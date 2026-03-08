@@ -106,7 +106,11 @@
 									"referenceName": "Archivedataset",
 									"type": "DatasetReference",
 									"parameters": {
-										"foldername": "archivedata"
+										"foldername": "archivedata",
+										"filename": {
+											"value": "@item().region",
+											"type": "Expression"
+										}
 									}
 								}
 							]

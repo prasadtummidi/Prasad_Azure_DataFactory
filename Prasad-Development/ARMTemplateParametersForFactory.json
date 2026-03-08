@@ -8,16 +8,22 @@
 		"AzureBlobStorage1_connectionString": {
 			"value": ""
 		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://prasadstoragaccount.dfs.core.windows.net/"
+		},
 		"AzureSqlDatabase1_properties_typeProperties_server": {
 			"value": "prasad-sql-server.database.windows.net"
 		},
 		"AzureSqlDatabase1_properties_typeProperties_database": {
 			"value": "prasad-sql-database"
 		},
-		"trigger1_properties_PL_schedule-trigger_parameters_foname": {
+		"trigger1_properties_PL_storage-event-trigger_parameters_foname": {
 			"value": "@trigger().outputs.body.foldername"
 		},
-		"trigger1_properties_PL_schedule-trigger_parameters_fname": {
+		"trigger1_properties_PL_storage-event-trigger_parameters_fname": {
 			"value": "@trigger().outputs.body.filename"
 		},
 		"trigger1_properties_typeProperties_scope": {

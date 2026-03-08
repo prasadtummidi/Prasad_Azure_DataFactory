@@ -1,5 +1,5 @@
 {
-	"name": "PL_SQL_Query",
+	"name": "PL_SQL_Query_Withoutpipeline_paramter",
 	"properties": {
 		"activities": [
 			{

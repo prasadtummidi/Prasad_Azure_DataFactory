@@ -44,6 +44,10 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup1').output.value",
+						"type": "Expression"
+					},
 					"activities": [
 						{
 							"name": "Copy data1",
@@ -61,7 +65,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "select * from dbo.customer where region=item().region",
+										"value": "select * from dbo.customer where region='@{item().region}'",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",

@@ -65,8 +65,7 @@
 						"referenceName": "Archivedataset",
 						"type": "DatasetReference",
 						"parameters": {
-							"foldername": "archivedata",
-							"filename": "somevalue"
+							"foldername": "archivedata"
 						}
 					}
 				]

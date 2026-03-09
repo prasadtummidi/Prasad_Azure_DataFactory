@@ -15,7 +15,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "outputfiledata",
+				"fileName": "outputfiledata.json",
 				"folderPath": {
 					"value": "@dataset().foldername",
 					"type": "Expression"
@@ -24,12 +24,11 @@
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "",
-			"firstRowAsHeader": true,
+			"firstRowAsHeader": false,
 			"quoteChar": ""
 		},
 		"schema": [
 			{
-				"name": "id;name;villege;dob",
 				"type": "String"
 			}
 		]

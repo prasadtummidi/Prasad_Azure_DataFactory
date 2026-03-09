@@ -80,9 +80,9 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "Column1",
 									"type": "String",
-									"physicalType": "String"
+									"physicalType": "String",
+									"ordinal": 1
 								}
 							}
 						],

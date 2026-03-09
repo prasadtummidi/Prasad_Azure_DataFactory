@@ -45,7 +45,7 @@
 							{
 								"name": "myvalue",
 								"value": {
-									"value": "@pipeline().parameters.inputjsonvalue",
+									"value": "@{pipeline().parameters.inputjsonvalue}",
 									"type": "Expression"
 								}
 							}

@@ -1,35 +1,27 @@
 {
-	"name": "Archivedataset",
+	"name": "inputdataset_variable",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",
 			"type": "LinkedServiceReference"
-		},
-		"parameters": {
-			"foldername": {
-				"type": "string"
-			}
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "outputfiledata",
-				"folderPath": {
-					"value": "@dataset().foldername",
-					"type": "Expression"
-				},
+				"fileName": "fill.txt",
+				"folderPath": "inputdata",
 				"container": "prasadcontainer"
 			},
 			"columnDelimiter": ",",
-			"escapeChar": "",
-			"firstRowAsHeader": true,
-			"quoteChar": ""
+			"escapeChar": "\\",
+			"firstRowAsHeader": false,
+			"quoteChar": "\""
 		},
 		"schema": [
 			{
-				"name": "id;name;villege;dob",
+				"name": "filling",
 				"type": "String"
 			}
 		]

@@ -1,0 +1,145 @@
+{
+	"name": "PL_JsonParameter_File",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "myvariable",
+					"value": {
+						"value": "@pipeline().parameters.inputjsonvalue",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"additionalColumns": [
+							{
+								"name": "myvalue",
+								"value": {
+									"value": "@pipeline().parameters.inputjsonvalue",
+									"type": "Expression"
+								}
+							}
+						],
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "myvalue",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Column1",
+									"type": "String",
+									"physicalType": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "inputdataset_variable",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Archivedataset",
+						"type": "DatasetReference",
+						"parameters": {
+							"foldername": "archivedata"
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"inputjsonvalue": {
+				"type": "string",
+				"defaultValue": {
+					"employees": [
+						{
+							"id": 1,
+							"name": "Rahul",
+							"department": {
+								"dept_id": 101,
+								"dept_name": "IT"
+							}
+						},
+						{
+							"id": 2,
+							"name": "Anita",
+							"department": {
+								"dept_id": 102,
+								"dept_name": "HR"
+							}
+						}
+					]
+				}
+			}
+		},
+		"variables": {
+			"myvariable": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}

@@ -14,7 +14,7 @@
 				"typeProperties": {
 					"variableName": "myvariable",
 					"value": {
-						"value": "@pipeline().parameters.inputjsonvalue",
+						"value": "@{pipeline().parameters.inputjsonvalue}",
 						"type": "Expression"
 					}
 				}

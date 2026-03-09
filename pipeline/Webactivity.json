@@ -45,7 +45,7 @@
 							{
 								"name": "firstrow",
 								"value": {
-									"value": "@activity('Web1').output.data",
+									"value": "@{activity('Web1').output.data}",
 									"type": "Expression"
 								}
 							}

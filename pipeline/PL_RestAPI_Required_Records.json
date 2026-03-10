@@ -75,8 +75,25 @@
 								"sink": {
 									"name": "profile_image"
 								}
+							},
+							{
+								"source": {
+									"path": "$['status']"
+								},
+								"sink": {
+									"name": "status"
+								}
+							},
+							{
+								"source": {
+									"path": "$['message']"
+								},
+								"sink": {
+									"name": "message"
+								}
 							}
-						]
+						],
+						"collectionReference": "$data"
 					}
 				},
 				"inputs": [

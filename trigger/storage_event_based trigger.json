@@ -27,7 +27,7 @@
 		],
 		"type": "BlobEventsTrigger",
 		"typeProperties": {
-			"blobPathBeginsWith": "/prasadcontainer/blobs/inputdata/emp",
+			"blobPathBeginsWith": "/prasadcontainer/blobs/inputdata/emp*",
 			"blobPathEndsWith": ".csv",
 			"ignoreEmptyBlobs": true,
 			"scope": "/subscriptions/a2802da5-d374-447e-840f-5a4261000cb7/resourceGroups/Prasad-Development/providers/Microsoft.Storage/storageAccounts/prasadstoragaccount",

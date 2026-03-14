@@ -1,0 +1,29 @@
+{
+	"name": "Outputdata",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "logging_error_details.txt",
+				"folderPath": "outputdata",
+				"fileSystem": "prasadcontainer"
+			},
+			"columnDelimiter": ";",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "id;name;villege;dob",
+				"type": "String"
+			}
+		]
+	}
+}

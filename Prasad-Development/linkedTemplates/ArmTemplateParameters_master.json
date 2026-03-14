@@ -20,13 +20,25 @@
 		"AzureSqlDatabase1_properties_typeProperties_database": {
 			"value": "prasad-sql-database"
 		},
-		"trigger1_properties_PL_storage-event-trigger_parameters_foname": {
+		"RestService1_properties_typeProperties_url": {
+			"value": "https://jsonplaceholder.typicode.com/posts"
+		},
+		"RestService_Parameter_properties_typeProperties_url": {
+			"value": "https://dummy.restapiexample.com/api/v1/employee/"
+		},
+		"storage_event_based trigger_properties_PL_storage-event-trigger_parameters_foname": {
 			"value": "@trigger().outputs.body.foldername"
 		},
-		"trigger1_properties_PL_storage-event-trigger_parameters_fname": {
+		"storage_event_based trigger_properties_PL_storage-event-trigger_parameters_fname": {
 			"value": "@trigger().outputs.body.filename"
 		},
-		"trigger1_properties_typeProperties_scope": {
+		"storage_event_based trigger_properties_PL_sendemail_parameters_foldername": {
+			"value": "@trigger().outputs.body.folderPath"
+		},
+		"storage_event_based trigger_properties_PL_sendemail_parameters_filename": {
+			"value": "@trigger().outputs.body.fileName"
+		},
+		"storage_event_based trigger_properties_typeProperties_scope": {
 			"value": "/subscriptions/a2802da5-d374-447e-840f-5a4261000cb7/resourceGroups/Prasad-Development/providers/Microsoft.Storage/storageAccounts/prasadstoragaccount"
 		},
 		"containerUri": {

@@ -27,15 +27,31 @@
 			"type": "string",
 			"defaultValue": "prasad-sql-database"
 		},
-		"trigger1_properties_PL_storage-event-trigger_parameters_foname": {
+		"RestService1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://jsonplaceholder.typicode.com/posts"
+		},
+		"RestService_Parameter_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://dummy.restapiexample.com/api/v1/employee/"
+		},
+		"storage_event_based trigger_properties_PL_storage-event-trigger_parameters_foname": {
 			"type": "string",
 			"defaultValue": "@trigger().outputs.body.foldername"
 		},
-		"trigger1_properties_PL_storage-event-trigger_parameters_fname": {
+		"storage_event_based trigger_properties_PL_storage-event-trigger_parameters_fname": {
 			"type": "string",
 			"defaultValue": "@trigger().outputs.body.filename"
 		},
-		"trigger1_properties_typeProperties_scope": {
+		"storage_event_based trigger_properties_PL_sendemail_parameters_foldername": {
+			"type": "string",
+			"defaultValue": "@trigger().outputs.body.folderPath"
+		},
+		"storage_event_based trigger_properties_PL_sendemail_parameters_filename": {
+			"type": "string",
+			"defaultValue": "@trigger().outputs.body.fileName"
+		},
+		"storage_event_based trigger_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/a2802da5-d374-447e-840f-5a4261000cb7/resourceGroups/Prasad-Development/providers/Microsoft.Storage/storageAccounts/prasadstoragaccount"
 		},
@@ -80,6 +96,12 @@
 					},
 					"AzureSqlDatabase1_properties_typeProperties_database": {
 						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_database')]"
+					},
+					"RestService1_properties_typeProperties_url": {
+						"value": "[parameters('RestService1_properties_typeProperties_url')]"
+					},
+					"RestService_Parameter_properties_typeProperties_url": {
+						"value": "[parameters('RestService_Parameter_properties_typeProperties_url')]"
 					}
 				}
 			},
@@ -99,14 +121,20 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"trigger1_properties_PL_storage-event-trigger_parameters_foname": {
-						"value": "[parameters('trigger1_properties_PL_storage-event-trigger_parameters_foname')]"
+					"storage_event_based trigger_properties_PL_storage-event-trigger_parameters_foname": {
+						"value": "[parameters('storage_event_based trigger_properties_PL_storage-event-trigger_parameters_foname')]"
 					},
-					"trigger1_properties_PL_storage-event-trigger_parameters_fname": {
-						"value": "[parameters('trigger1_properties_PL_storage-event-trigger_parameters_fname')]"
+					"storage_event_based trigger_properties_PL_storage-event-trigger_parameters_fname": {
+						"value": "[parameters('storage_event_based trigger_properties_PL_storage-event-trigger_parameters_fname')]"
 					},
-					"trigger1_properties_typeProperties_scope": {
-						"value": "[parameters('trigger1_properties_typeProperties_scope')]"
+					"storage_event_based trigger_properties_PL_sendemail_parameters_foldername": {
+						"value": "[parameters('storage_event_based trigger_properties_PL_sendemail_parameters_foldername')]"
+					},
+					"storage_event_based trigger_properties_PL_sendemail_parameters_filename": {
+						"value": "[parameters('storage_event_based trigger_properties_PL_sendemail_parameters_filename')]"
+					},
+					"storage_event_based trigger_properties_typeProperties_scope": {
+						"value": "[parameters('storage_event_based trigger_properties_typeProperties_scope')]"
 					}
 				}
 			},

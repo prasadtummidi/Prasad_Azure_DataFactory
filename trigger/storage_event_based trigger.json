@@ -1,5 +1,5 @@
 {
-	"name": "trigger1",
+	"name": "storage_event_based trigger",
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
@@ -12,6 +12,16 @@
 				"parameters": {
 					"foname": "@trigger().outputs.body.foldername",
 					"fname": "@trigger().outputs.body.filename"
+				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "PL_sendemail",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"foldername": "@trigger().outputs.body.folderPath",
+					"filename": "@trigger().outputs.body.fileName"
 				}
 			}
 		],

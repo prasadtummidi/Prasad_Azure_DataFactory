@@ -2222,6 +2222,35 @@
 						"typeProperties": {
 							"waitTimeInSeconds": 1
 						}
+					},
+					{
+						"name": "Web1",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Wait1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"method": "POST",
+							"headers": {},
+							"url": "https://prod-16.northcentralus.logic.azure.com:443/workflows/d4cc5e05305145ddae3aff00753b6e5a/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=9wKjNw6otKmZ4Ad9QVprhcKOFi0JEpCAojOadnE9G_8",
+							"body": {
+								"value": "{\"pipelinename\":\"@{pipeline().Pipeline}\",\n\"foldername\":\"@{pipeline().parameters.filename}\",\n\"filename\":\"@{pipeline().parameters.foldername}\"}\n",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"policy": {
@@ -3073,7 +3102,7 @@
 				],
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
-					"blobPathBeginsWith": "/prasadcontainer/blobs/inputdata/emp",
+					"blobPathBeginsWith": "/prasadcontainer/blobs/inputdata/emp*",
 					"blobPathEndsWith": ".csv",
 					"ignoreEmptyBlobs": true,
 					"scope": "[parameters('storage_event_based trigger_properties_typeProperties_scope')]",

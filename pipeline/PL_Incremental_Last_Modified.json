@@ -48,23 +48,65 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Filter1').output",
+						"value": "@activity('Filter1').output.Value\n",
 						"type": "Expression"
 					},
 					"activities": [
 						{
+							"name": "Get Metadata2",
+							"type": "GetMetadata",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"dataset": {
+									"referenceName": "Inputdataset_filename_parameter",
+									"type": "DatasetReference",
+									"parameters": {
+										"filename": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
+								},
+								"fieldList": [
+									"lastModified"
+								],
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							}
+						},
+						{
 							"name": "Set variable1",
 							"type": "SetVariable",
-							"dependsOn": [],
+							"dependsOn": [
+								{
+									"activity": "Get Metadata2",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"policy": {
 								"secureOutput": false,
 								"secureInput": false
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "timestamp",
+								"variableName": "filetimestamp",
 								"value": {
-									"value": "@item()",
+									"value": "@activity('Get Metadata1').output.lastModified",
 									"type": "Expression"
 								}
 							}
@@ -83,12 +125,12 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@greaterOrEquals(variables('timestamp'),utcNow() )",
+									"value": "@greater(variables('filetimestamp'),variables('reffiletimestamp'))",
 									"type": "Expression"
 								},
 								"ifFalseActivities": [
 									{
-										"name": "DoNotCopy",
+										"name": "Wait1",
 										"type": "Wait",
 										"dependsOn": [],
 										"userProperties": [],
@@ -99,12 +141,20 @@
 								],
 								"ifTrueActivities": [
 									{
-										"name": "copy_wait",
-										"type": "Wait",
+										"name": "Set variable2",
+										"type": "SetVariable",
 										"dependsOn": [],
+										"policy": {
+											"secureOutput": false,
+											"secureInput": false
+										},
 										"userProperties": [],
 										"typeProperties": {
-											"waitTimeInSeconds": 1
+											"variableName": "reffiletimestamp",
+											"value": {
+												"value": "@activity('Get Metadata2').output.lastModified",
+												"type": "Expression"
+											}
 										}
 									}
 								]
@@ -131,15 +181,19 @@
 						"type": "Expression"
 					},
 					"condition": {
-						"value": "@contains(item(),'.csv')",
+						"value": "@contains(item().name,'.csv')",
 						"type": "Expression"
 					}
 				}
 			}
 		],
 		"variables": {
-			"timestamp": {
+			"filetimestamp": {
 				"type": "String"
+			},
+			"reffiletimestamp": {
+				"type": "String",
+				"defaultValue": "1900-01-01 00:00:00"
 			}
 		},
 		"annotations": []

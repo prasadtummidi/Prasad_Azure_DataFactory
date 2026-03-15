@@ -26,6 +26,12 @@
 		"RestService_Parameter_properties_typeProperties_url": {
 			"value": "https://dummy.restapiexample.com/api/v1/employee/"
 		},
+		"Trigger_bwd_properties_pipeline_parameters_windowStart": {
+			"value": "@{addminutes(trigger().scheduledTime, -10)}"
+		},
+		"Trigger_bwd_properties_pipeline_parameters_windowEnd": {
+			"value": "@trigger().scheduledTime"
+		},
 		"storage_event_based trigger_properties_PL_storage-event-trigger_parameters_foname": {
 			"value": "@trigger().outputs.body.foldername"
 		},

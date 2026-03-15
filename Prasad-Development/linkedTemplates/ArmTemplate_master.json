@@ -35,6 +35,14 @@
 			"type": "string",
 			"defaultValue": "https://dummy.restapiexample.com/api/v1/employee/"
 		},
+		"Trigger_bwd_properties_pipeline_parameters_windowStart": {
+			"type": "string",
+			"defaultValue": "@{addminutes(trigger().scheduledTime, -10)}"
+		},
+		"Trigger_bwd_properties_pipeline_parameters_windowEnd": {
+			"type": "string",
+			"defaultValue": "@trigger().scheduledTime"
+		},
 		"storage_event_based trigger_properties_PL_storage-event-trigger_parameters_foname": {
 			"type": "string",
 			"defaultValue": "@trigger().outputs.body.foldername"
@@ -120,6 +128,32 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'Prasad-Development_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "Prasad-Development_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"Trigger_bwd_properties_pipeline_parameters_windowStart": {
+						"value": "[parameters('Trigger_bwd_properties_pipeline_parameters_windowStart')]"
+					},
+					"Trigger_bwd_properties_pipeline_parameters_windowEnd": {
+						"value": "[parameters('Trigger_bwd_properties_pipeline_parameters_windowEnd')]"
 					},
 					"storage_event_based trigger_properties_PL_storage-event-trigger_parameters_foname": {
 						"value": "[parameters('storage_event_based trigger_properties_PL_storage-event-trigger_parameters_foname')]"
@@ -139,7 +173,7 @@
 				}
 			},
 			"dependsOn": [
-				"[resourceId('Microsoft.Resources/deployments', 'Prasad-Development_ArmTemplate_0')]"
+				"[resourceId('Microsoft.Resources/deployments', 'Prasad-Development_ArmTemplate_1')]"
 			]
 		}
 	]

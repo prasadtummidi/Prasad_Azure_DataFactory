@@ -15,7 +15,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "emp2.csv",
+				"fileName": "*.csv",
 				"folderPath": {
 					"value": "@dataset().foldername",
 					"type": "Expression"

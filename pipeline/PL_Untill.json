@@ -76,7 +76,8 @@
 		],
 		"variables": {
 			"FileExists": {
-				"type": "Boolean"
+				"type": "Boolean",
+				"defaultValue": false
 			}
 		},
 		"annotations": []

@@ -53,12 +53,24 @@
 					},
 					"ifFalseActivities": [
 						{
-							"name": "Waitfalse",
-							"type": "Wait",
+							"name": "Web1",
+							"type": "WebActivity",
 							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
-								"waitTimeInSeconds": 1
+								"method": "POST",
+								"url": "https://prod-07.northcentralus.logic.azure.com:443/workflows/ffc91010bd1e423492cc85d12db88838/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=bzCotSdrdvT9GqHz1FNDxaVwMgpJPfu4YjvwNa4lp4Y",
+								"body": {
+									"value": "\"pipelinename\":\"@{pipeline().Pipeline}\",\n\"pipelinerunid\":\"@{pipeline().RunId}\",\n\"filename\":\"File does not exist don't proceed further\"\n}\n\n\n",
+									"type": "Expression"
+								}
 							}
 						}
 					],

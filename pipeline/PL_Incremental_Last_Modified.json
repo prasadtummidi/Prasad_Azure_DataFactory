@@ -76,7 +76,8 @@
 									}
 								},
 								"fieldList": [
-									"lastModified"
+									"lastModified",
+									"itemName"
 								],
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
@@ -106,7 +107,7 @@
 							"typeProperties": {
 								"variableName": "filetimestamp",
 								"value": {
-									"value": "@activity('Get Metadata1').output.lastModified",
+									"value": "@activity('Get Metadata2').output.lastModified",
 									"type": "Expression"
 								}
 							}
@@ -156,6 +157,30 @@
 												"type": "Expression"
 											}
 										}
+									},
+									{
+										"name": "Set variable3",
+										"type": "SetVariable",
+										"dependsOn": [
+											{
+												"activity": "Set variable2",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "filename",
+											"value": {
+												"value": "@activity('Get Metadata2').output.itemName",
+												"type": "Expression"
+											}
+										}
 									}
 								]
 							}
@@ -194,6 +219,9 @@
 			"reffiletimestamp": {
 				"type": "String",
 				"defaultValue": "1900-01-01 00:00:00"
+			},
+			"filename": {
+				"type": "String"
 			}
 		},
 		"annotations": []

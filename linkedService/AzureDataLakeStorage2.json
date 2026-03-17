@@ -1,0 +1,19 @@
+{
+	"name": "AzureDataLakeStorage2",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://prasadstoragaccount.dfs.core.windows.net/",
+			"accountKey": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "keyvalultlinkedservice",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "blob-storage",
+				"secretVersion": "cf5b00eb449a4463bb46fd80dadf14ef"
+			}
+		}
+	}
+}

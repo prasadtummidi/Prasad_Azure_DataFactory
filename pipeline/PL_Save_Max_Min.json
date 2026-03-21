@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "select dob from dbo.table_sales",
+						"sqlReaderQuery": "select max(dob) as max_id , min(dob) as min_id from dbo.table_sales",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -25,12 +25,12 @@
 						"referenceName": "sqldataset",
 						"type": "DatasetReference"
 					},
-					"firstRowOnly": false
+					"firstRowOnly": true
 				}
 			},
 			{
-				"name": "ForEach1",
-				"type": "ForEach",
+				"name": "Set variable1",
+				"type": "SetVariable",
 				"dependsOn": [
 					{
 						"activity": "Lookup1",
@@ -39,64 +39,41 @@
 						]
 					}
 				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
-					"items": {
-						"value": "@activity('Lookup1').output.value",
+					"variableName": "Max_value",
+					"value": {
+						"value": "@string(activity('Lookup1').output.firstRow.Max_id)",
 						"type": "Expression"
-					},
-					"activities": [
-						{
-							"name": "If Condition1",
-							"type": "IfCondition",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"expression": {
-									"value": "@greater(item().dob,variables('Reference_value'))",
-									"type": "Expression"
-								},
-								"ifFalseActivities": [
-									{
-										"name": "Set variable2",
-										"type": "SetVariable",
-										"dependsOn": [],
-										"policy": {
-											"secureOutput": false,
-											"secureInput": false
-										},
-										"userProperties": [],
-										"typeProperties": {
-											"variableName": "Min_value",
-											"value": {
-												"value": "@activity('Lookup1').output.dob",
-												"type": "Expression"
-											}
-										}
-									}
-								],
-								"ifTrueActivities": [
-									{
-										"name": "Set variable1",
-										"type": "SetVariable",
-										"dependsOn": [],
-										"policy": {
-											"secureOutput": false,
-											"secureInput": false
-										},
-										"userProperties": [],
-										"typeProperties": {
-											"variableName": "Reference_value",
-											"value": {
-												"value": "@activity('Lookup1').output.dob",
-												"type": "Expression"
-											}
-										}
-									}
-								]
-							}
-						}
-					]
+					}
+				}
+			},
+			{
+				"name": "Set variable2",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Lookup1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "Min_value",
+					"value": {
+						"value": "@string(activity('Lookup1').output.firstRow.Min_id)",
+						"type": "Expression"
+					}
 				}
 			}
 		],
@@ -106,10 +83,6 @@
 			},
 			"Min_value": {
 				"type": "String"
-			},
-			"Reference_value": {
-				"type": "String",
-				"defaultValue": "1900-01-01"
 			}
 		},
 		"annotations": []

@@ -1,0 +1,48 @@
+{
+	"name": "PL_Script taks_Storedprocedure",
+	"properties": {
+		"activities": [
+			{
+				"name": "Script1",
+				"type": "Script",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"parameters": [
+								{
+									"name": "inputregion",
+									"type": "String",
+									"value": "USA",
+									"direction": "Input"
+								},
+								{
+									"name": "outputrecordscount",
+									"type": "Int64",
+									"value": "0",
+									"direction": "Output"
+								}
+							],
+							"type": "Query",
+							"text": "exec dbo.customer_procedure @region=@inputregion , @countofrecords=@outputrecordscount output"
+						}
+					],
+					"scriptBlockExecutionTimeout": "02:00:00"
+				}
+			}
+		],
+		"annotations": []
+	}
+}

@@ -1,0 +1,81 @@
+{
+	"name": "PL_Script_Task_Inputoutput",
+	"properties": {
+		"activities": [
+			{
+				"name": "Script1",
+				"type": "Script",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"parameters": [
+								{
+									"name": "Region",
+									"type": "String",
+									"value": "USA",
+									"direction": "Input"
+								},
+								{
+									"name": "fname",
+									"type": "String",
+									"value": "Inampudi",
+									"direction": "InputOutput",
+									"size": 100
+								}
+							],
+							"type": "Query",
+							"text": "select @fname=fname+' '+Region from dbo.customer where Region='USA' and fname='Inampudi'"
+						}
+					],
+					"scriptBlockExecutionTimeout": "02:00:00"
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [
+					{
+						"activity": "Script1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "countofvalues",
+					"value": {
+						"value": "@activity('Script1').output.outputparameters.Count",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"countofvalues": {
+				"type": "Integer",
+				"defaultValue": 0
+			}
+		},
+		"annotations": []
+	}
+}

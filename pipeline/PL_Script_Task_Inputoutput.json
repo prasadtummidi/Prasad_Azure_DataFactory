@@ -37,7 +37,7 @@
 								}
 							],
 							"type": "Query",
-							"text": "select @fname=fname+' '+Region from dbo.customer where Region='USA' and fname='Inampudi'"
+							"text": "select @fname=fname+' '+Region from dbo.customer where Region=@Region and fname=@fname"
 						}
 					],
 					"scriptBlockExecutionTimeout": "02:00:00"

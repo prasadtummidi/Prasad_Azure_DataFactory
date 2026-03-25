@@ -42,7 +42,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Script1').output",
+						"value": "@activity('Script1').output.resultSets[0].rows",
 						"type": "Expression"
 					},
 					"isSequential": true,
@@ -58,7 +58,10 @@
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "country",
-								"value": ""
+								"value": {
+									"value": "@item().Region",
+									"type": "Expression"
+								}
 							}
 						},
 						{
@@ -72,7 +75,10 @@
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "fname",
-								"value": ""
+								"value": {
+									"value": "@item().fname",
+									"type": "Expression"
+								}
 							}
 						}
 					]

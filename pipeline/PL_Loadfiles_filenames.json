@@ -75,7 +75,7 @@
 									{
 										"type": "Query",
 										"text": {
-											"value": "into dbo.filelist set filename='item()'",
+											"value": "insert into dbo.filelist (filename) values ('item().name')",
 											"type": "Expression"
 										}
 									}

@@ -75,7 +75,7 @@
 									{
 										"type": "Query",
 										"text": {
-											"value": "insert into dbo.filelist (filename) values ('item().name')",
+											"value": "insert into dbo.filelist (filename) values ('@{item().name}')",
 											"type": "Expression"
 										}
 									}
@@ -84,6 +84,41 @@
 							}
 						}
 					]
+				}
+			},
+			{
+				"name": "Lookup1",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "get the filenames into table",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "select filename,convert(date,SUBSTRING(filename,CHARINDEX('_',filename)+1,8)) as date,\nstuff(stuff(substring(filename,CHARINDEX('_',filename,CHARINDEX('_',filename)+1)+1,6),3,0,':'),6,0,':') as time  from dbo.filelist",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "sqldataset",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "filelist"
+						}
+					}
 				}
 			}
 		],

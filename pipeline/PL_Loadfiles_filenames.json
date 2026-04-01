@@ -5,6 +5,8 @@
 			{
 				"name": "Get filenames",
 				"type": "GetMetadata",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -28,6 +30,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -38,6 +41,8 @@
 			{
 				"name": "get the filenames into table",
 				"type": "ForEach",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Get filenames",
@@ -108,7 +113,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "select filename,convert(date,SUBSTRING(filename,CHARINDEX('_',filename)+1,8)) as date,\nstuff(stuff(substring(filename,CHARINDEX('_',filename,CHARINDEX('_',filename)+1)+1,6),3,0,':'),6,0,':') as time  from dbo.filelist",
+						"sqlReaderQuery": "select filename,convert(date,SUBSTRING(filename,CHARINDEX('_',filename)+1,8)) as date,\nstuff(stuff(substring(filename,CHARINDEX('_',filename,CHARINDEX('_',filename)+1)+1,6),3,0,':'),6,0,':') as time  from dbo.filelist order by date,time",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -118,7 +123,8 @@
 						"parameters": {
 							"tablename": "filelist"
 						}
-					}
+					},
+					"firstRowOnly": false
 				}
 			}
 		],

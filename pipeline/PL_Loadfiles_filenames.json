@@ -162,7 +162,10 @@
 								"scripts": [
 									{
 										"type": "NonQuery",
-										"text": "update dbo.filelist set Load_status='yes'"
+										"text": {
+											"value": "update dbo.filelist set Load_status='yes' where filename='@{item().filename}'",
+											"type": "Expression"
+										}
 									}
 								],
 								"scriptBlockExecutionTimeout": "02:00:00"
@@ -190,6 +193,15 @@
 							"typeProperties": {
 								"source": {
 									"type": "DelimitedTextSource",
+									"additionalColumns": [
+										{
+											"name": "filename",
+											"value": {
+												"value": "@item().filename",
+												"type": "Expression"
+											}
+										}
+									],
 									"storeSettings": {
 										"type": "AzureBlobFSReadSettings",
 										"recursive": true,
@@ -200,19 +212,74 @@
 									}
 								},
 								"sink": {
-									"type": "DelimitedTextSink",
-									"storeSettings": {
-										"type": "AzureBlobStorageWriteSettings"
-									},
-									"formatSettings": {
-										"type": "DelimitedTextWriteSettings",
-										"quoteAllText": true,
-										"fileExtension": ".txt"
-									}
+									"type": "AzureSqlSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false
 								},
 								"enableStaging": false,
 								"translator": {
 									"type": "TabularTranslator",
+									"mappings": [
+										{
+											"source": {
+												"name": "id",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "customer_id",
+												"type": "Int32",
+												"physicalType": "int"
+											}
+										},
+										{
+											"source": {
+												"name": "fname",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "fname",
+												"type": "String",
+												"physicalType": "nvarchar"
+											}
+										},
+										{
+											"source": {
+												"name": "lname",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "lname",
+												"type": "String",
+												"physicalType": "nvarchar"
+											}
+										},
+										{
+											"source": {
+												"name": "salary",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "salary",
+												"type": "Int32",
+												"physicalType": "int"
+											}
+										},
+										{
+											"source": {
+												"name": "filename",
+												"type": "String"
+											},
+											"sink": {
+												"name": "filename",
+												"type": "String",
+												"physicalType": "nvarchar"
+											}
+										}
+									],
 									"typeConversion": true,
 									"typeConversionSettings": {
 										"allowDataTruncation": true,
@@ -235,10 +302,10 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "Archivedataset",
+									"referenceName": "sqldataset",
 									"type": "DatasetReference",
 									"parameters": {
-										"foldername": "archivedata"
+										"tablename": "customer_filename"
 									}
 								}
 							]

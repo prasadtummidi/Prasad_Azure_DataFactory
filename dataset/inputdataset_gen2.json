@@ -39,15 +39,15 @@
 				"type": "String"
 			},
 			{
-				"name": "name",
+				"name": "fname",
 				"type": "String"
 			},
 			{
-				"name": "villege",
+				"name": "lname",
 				"type": "String"
 			},
 			{
-				"name": "dob",
+				"name": "salary",
 				"type": "String"
 			}
 		]

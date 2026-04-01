@@ -16,15 +16,10 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "DelimitedTextSource",
-						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
-						}
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "select * from dbo.customer",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
 					},
 					"sink": {
 						"type": "DelimitedTextSink",
@@ -49,18 +44,24 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "inputdataset_gen2",
+						"referenceName": "sqldataset",
 						"type": "DatasetReference",
 						"parameters": {
-							"foldername": "inputdata",
-							"filename": "*.txt"
+							"tablename": "customer"
 						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "archive_dataset_filename_get2",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"foldername": "archivedata",
+							"filename": {
+								"value": "@concat('customer_data','_',adddays(startOfDay(utcNow()),-1,'ddMMyyyy'),'_Ending',formatDateTime(utcNow(),'ddMMyyyy'))",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}

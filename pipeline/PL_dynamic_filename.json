@@ -58,7 +58,7 @@
 						"parameters": {
 							"foldername": "archivedata",
 							"filename": {
-								"value": "@concat('customer_data','_',adddays(startOfDay(utcNow()),-1,'ddMMyyyy'),'_Ending',formatDateTime(utcNow(),'ddMMyyyy'))",
+								"value": "@concat('customer_data','_',adddays(startOfDay(utcNow()),-1,'ddMMyyyy'),'_Ending_',formatDateTime(utcNow(),'ddMMyyyy'))",
 								"type": "Expression"
 							}
 						}

@@ -249,7 +249,7 @@
 									{
 										"type": "Query",
 										"text": {
-											"value": "insert into  dbo.foldernames values ('@{item().name}',variables('count'))",
+											"value": "insert into  dbo.foldernames values ('@{item().name}',@{variables('count')})\n\n\n",
 											"type": "Expression"
 										}
 									}

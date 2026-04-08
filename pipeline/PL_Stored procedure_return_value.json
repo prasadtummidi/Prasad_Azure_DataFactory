@@ -22,7 +22,10 @@
 							"type": "Int32"
 						},
 						"Region": {
-							"value": "'USA\"",
+							"value": {
+								"value": "@pipeline().parameters.Region",
+								"type": "Expression"
+							},
 							"type": "String"
 						}
 					}
@@ -33,6 +36,11 @@
 				}
 			}
 		],
+		"parameters": {
+			"Region": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }

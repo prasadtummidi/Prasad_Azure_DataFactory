@@ -90,8 +90,6 @@
 						{
 							"name": "Execute Pipeline1",
 							"type": "ExecutePipeline",
-							"state": "Inactive",
-							"onInactiveMarkAs": "Succeeded",
 							"dependsOn": [
 								{
 									"activity": "Stored procedure1",
@@ -109,13 +107,7 @@
 									"referenceName": "PL_Child_Invokepipeline",
 									"type": "PipelineReference"
 								},
-								"waitOnCompletion": true,
-								"parameters": {
-									"foldername": {
-										"value": "@activity('Lookup1').output",
-										"type": "Expression"
-									}
-								}
+								"waitOnCompletion": true
 							}
 						},
 						{

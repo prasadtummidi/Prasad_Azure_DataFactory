@@ -48,6 +48,30 @@
 								],
 								"scriptBlockExecutionTimeout": "02:00:00"
 							}
+						},
+						{
+							"name": "Set variable1",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Script1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "setstatus",
+								"value": {
+									"value": "@activity('Script1').output",
+									"type": "Expression"
+								}
+							}
 						}
 					]
 				}
@@ -82,9 +106,9 @@
 				}
 			}
 		],
-		"parameters": {
-			"foldername": {
-				"type": "string"
+		"variables": {
+			"setstatus": {
+				"type": "Integer"
 			}
 		},
 		"annotations": []

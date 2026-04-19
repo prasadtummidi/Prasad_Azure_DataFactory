@@ -85,6 +85,30 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "Set variable2",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "ForEach1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "finalvalue",
+					"value": {
+						"value": "@variables('storedvalue')",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"variables": {
@@ -93,6 +117,9 @@
 			},
 			"testvalue": {
 				"type": "Integer"
+			},
+			"finalvalue": {
+				"type": "Array"
 			}
 		},
 		"annotations": []

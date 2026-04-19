@@ -98,9 +98,27 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@activity('Get Metadata2').output.childItems",
+									"value": "@empty(activity('Get Metadata2').output.childItems)",
 									"type": "Expression"
 								},
+								"ifFalseActivities": [
+									{
+										"name": "Set variable2",
+										"type": "SetVariable",
+										"dependsOn": [],
+										"policy": {
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "non_empty_folder",
+											"value": [
+												"@item().name"
+											]
+										}
+									}
+								],
 								"ifTrueActivities": [
 									{
 										"name": "Set variable1",
@@ -114,7 +132,7 @@
 										"typeProperties": {
 											"variableName": "empty_folder",
 											"value": [
-												""
+												"@item().name"
 											]
 										}
 									}

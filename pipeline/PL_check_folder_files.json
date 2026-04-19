@@ -103,37 +103,25 @@
 								},
 								"ifFalseActivities": [
 									{
-										"name": "Set variable2",
-										"type": "SetVariable",
+										"name": "Append variable1_copy1",
+										"type": "AppendVariable",
 										"dependsOn": [],
-										"policy": {
-											"secureOutput": false,
-											"secureInput": false
-										},
 										"userProperties": [],
 										"typeProperties": {
 											"variableName": "non_empty_folder",
-											"value": [
-												"@item().name"
-											]
+											"value": "@item().name"
 										}
 									}
 								],
 								"ifTrueActivities": [
 									{
-										"name": "Set variable1",
-										"type": "SetVariable",
+										"name": "Append variable1",
+										"type": "AppendVariable",
 										"dependsOn": [],
-										"policy": {
-											"secureOutput": false,
-											"secureInput": false
-										},
 										"userProperties": [],
 										"typeProperties": {
 											"variableName": "empty_folder",
-											"value": [
-												"@item().name"
-											]
+											"value": "@item().name"
 										}
 									}
 								]

@@ -170,7 +170,7 @@
 						{
 							"type": "Query",
 							"text": {
-								"value": "insert into dbo.folder_files (emptyfolder) values (INSERT INTO dbo.folder_files\nVALUES ('@{string(variables('empty_folder'))}'))\n\n\ninsert into dbo.folder_files (non_empty_folder) values (INSERT INTO dbo.folder_files\nVALUES ('@{string(variables('non_empty_folder'))}'))",
+								"value": "INSERT INTO dbo.folder_files (emptyfolder) \nVALUES ('@{string(variables('empty_folder'))}')\n\nINSERT INTO dbo.folder_files (non_empty_folder)\nVALUES ('@{string(variables('non_empty_folder'))}')",
 								"type": "Expression"
 							}
 						}

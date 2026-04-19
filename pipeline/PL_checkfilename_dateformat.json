@@ -191,7 +191,7 @@
 									{
 										"type": "Query",
 										"text": {
-											"value": "select isdate(item().foldername)",
+											"value": "SELECT ISDATE('@{item().foldername}')",
 											"type": "Expression"
 										}
 									}

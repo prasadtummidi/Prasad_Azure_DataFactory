@@ -5,11 +5,20 @@
 			"referenceName": "AzureDataLakeStorage2",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"filename_output": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().filename_output",
+					"type": "Expression"
+				},
 				"folderPath": "outputdata",
 				"fileSystem": "prasadcontainer"
 			},

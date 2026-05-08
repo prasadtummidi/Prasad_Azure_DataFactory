@@ -27,6 +27,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -81,6 +82,7 @@
 								],
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
@@ -102,9 +104,28 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@greater(formatDateTime(activity('Get Metadata2').output.lastModified,'yyyy-MM-dd'),'1900-01-01')",
+									"value": "@greater(activity('Get Metadata2').output.lastModified,variables('Refdate'))",
 									"type": "Expression"
-								}
+								},
+								"ifTrueActivities": [
+									{
+										"name": "Set variable2",
+										"type": "SetVariable",
+										"dependsOn": [],
+										"policy": {
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "Refdate",
+											"value": {
+												"value": "@activity('Get Metadata2').output.lastModified",
+												"type": "Expression"
+											}
+										}
+									}
+								]
 							}
 						},
 						{
@@ -137,6 +158,13 @@
 		],
 		"variables": {
 			"filename": {
+				"type": "String"
+			},
+			"Refdate": {
+				"type": "String",
+				"defaultValue": "1900-01-01 00:00:00"
+			},
+			"Recentfile": {
 				"type": "String"
 			}
 		},

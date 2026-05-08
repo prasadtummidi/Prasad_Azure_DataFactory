@@ -131,9 +131,13 @@
 							"userProperties": [],
 							"typeProperties": {
 								"dataset": {
-									"referenceName": "source_filename",
+									"referenceName": "sourcedataset_folder_file_name",
 									"type": "DatasetReference",
 									"parameters": {
+										"foldername": {
+											"value": "@pipeline().parameters.Foldername",
+											"type": "Expression"
+										},
 										"filename": {
 											"value": "@item().name",
 											"type": "Expression"
@@ -141,6 +145,7 @@
 									}
 								},
 								"fieldList": [
+									"itemName",
 									"lastModified"
 								],
 								"storeSettings": {
@@ -180,7 +185,6 @@
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
-							"wildcardFileName": "*",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
@@ -211,11 +215,15 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "source_dataset_foldername",
+						"referenceName": "sourcedataset_folder_file_name",
 						"type": "DatasetReference",
 						"parameters": {
 							"foldername": {
-								"value": "@variables('lastfile')",
+								"value": "@pipeline().parameters.Foldername",
+								"type": "Expression"
+							},
+							"filename": {
+								"value": "@activity('Get Metadata2').output.itemName",
 								"type": "Expression"
 							}
 						}

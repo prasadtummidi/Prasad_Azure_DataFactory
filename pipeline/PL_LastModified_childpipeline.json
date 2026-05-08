@@ -223,7 +223,7 @@
 								"type": "Expression"
 							},
 							"filename": {
-								"value": "@activity('Get Metadata2').output.itemName",
+								"value": "@variables('lastfile')",
 								"type": "Expression"
 							}
 						}

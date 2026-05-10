@@ -1,0 +1,50 @@
+{
+	"name": "PL_run_as_many_times",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@range(0,sub(ticks(pipeline().parameters.date),ticks(utcNow())))",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Set variable1",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "result",
+								"value": {
+									"value": "@int('1')",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"date": {
+				"type": "string",
+				"defaultValue": "2026-05-08 00:00:00"
+			}
+		},
+		"variables": {
+			"result": {
+				"type": "Integer"
+			}
+		},
+		"annotations": []
+	}
+}

@@ -1,0 +1,75 @@
+{
+	"name": "PL_swap_array",
+	"properties": {
+		"activities": [
+			{
+				"name": "left_elements",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "left_elements",
+					"value": {
+						"value": "@take(variables('Init_array'),pipeline().parameters.index1)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "right_elements",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "right_elements",
+					"value": {
+						"value": "@skip(variables('Init_array'),add(pipeline().parameters.index1,1))",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"index1": {
+				"type": "int",
+				"defaultValue": 2
+			},
+			"index2": {
+				"type": "int",
+				"defaultValue": 3
+			}
+		},
+		"variables": {
+			"Init_array": {
+				"type": "Array",
+				"defaultValue": [
+					54,
+					32,
+					68,
+					43,
+					59,
+					62,
+					71
+				]
+			},
+			"final_array": {
+				"type": "Array"
+			},
+			"left_elements": {
+				"type": "Array"
+			},
+			"right_elements": {
+				"type": "Array"
+			}
+		},
+		"annotations": []
+	}
+}

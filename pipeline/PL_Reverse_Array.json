@@ -1,0 +1,103 @@
+{
+	"name": "PL_Reverse_Array",
+	"properties": {
+		"activities": [
+			{
+				"name": "Length_Array",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "length_array",
+					"value": {
+						"value": "@length(variables('Init_array'))",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Range_Array",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Length_Array",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "Range_array",
+					"value": {
+						"value": "@range(0,length(variables('Init_array')))",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Range_Array",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('Range_array')",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Append variable1",
+							"type": "AppendVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "final_array",
+								"value": {
+									"value": "@variables('Init_array')[sub(length(variables('Init_array')),item())]",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"Init_array": {
+				"type": "Array",
+				"defaultValue": [
+					"a",
+					"b",
+					"c",
+					"d"
+				]
+			},
+			"Range_array": {
+				"type": "Array"
+			},
+			"final_array": {
+				"type": "Array"
+			},
+			"length_array": {
+				"type": "Integer"
+			}
+		},
+		"annotations": []
+	}
+}

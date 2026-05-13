@@ -35,6 +35,60 @@
 						"type": "Expression"
 					}
 				}
+			},
+			{
+				"name": "Output_Variable",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "left_elements",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "right_elements",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "final_array",
+					"value": {
+						"value": "@createArray(variables('left_elements'),variables('Init_array')[pipeline().parameters.index2],variables('Init_array')[pipeline().parameters.index1],variables('right_elements'))",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Output_Variable",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "final_result",
+					"value": {
+						"value": "@json(concat('[',replace(replace(string(variables('final_array')),'[' ,'' ),']',''),']'))",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -67,6 +121,9 @@
 				"type": "Array"
 			},
 			"right_elements": {
+				"type": "Array"
+			},
+			"final_result": {
 				"type": "Array"
 			}
 		},

@@ -17,11 +17,17 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "Source_dataset_ADLS_Gen2",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"foldername": "inputdata"
+						}
 					},
-					"fieldList": [],
+					"fieldList": [
+						"childItems"
+					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -42,6 +48,10 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Metadata1').output.childItems",
+						"type": "Expression"
+					},
 					"activities": [
 						{
 							"name": "Append variable1",

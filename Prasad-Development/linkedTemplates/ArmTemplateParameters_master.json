@@ -11,7 +11,16 @@
 		"AzureDataLakeStorage1_accountKey": {
 			"value": ""
 		},
+		"Sftp1_password": {
+			"value": ""
+		},
+		"storage_service_principle_servicePrincipalCredential": {
+			"value": ""
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://prasadstoragaccount.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
 			"value": "https://prasadstoragaccount.dfs.core.windows.net/"
 		},
 		"AzureSqlDatabase1_properties_typeProperties_server": {
@@ -25,6 +34,27 @@
 		},
 		"RestService_Parameter_properties_typeProperties_url": {
 			"value": "https://dummy.restapiexample.com/api/v1/employee/"
+		},
+		"Sftp1_properties_typeProperties_host": {
+			"value": "test.rebex.net"
+		},
+		"Sftp1_properties_typeProperties_userName": {
+			"value": "demo"
+		},
+		"keyvalultlinkedservice_properties_typeProperties_baseUrl": {
+			"value": "https://prasad-keyvalut.vault.azure.net/"
+		},
+		"storage_service_principle_properties_typeProperties_serviceEndpoint": {
+			"value": "https://prasadstoragaccount.blob.core.windows.net/"
+		},
+		"storage_service_principle_properties_typeProperties_tenant": {
+			"value": "23d8ee5d-d1d7-49de-87d7-df975911c692"
+		},
+		"storage_service_principle_properties_typeProperties_servicePrincipalId": {
+			"value": "471403d2-797a-4bf2-9b25-da36d62e79d2"
+		},
+		"xml_connection_properties_typeProperties_url": {
+			"value": "https://www.w3schools.com"
 		},
 		"Trigger_bwd_properties_pipeline_parameters_windowStart": {
 			"value": "@{addminutes(trigger().scheduledTime, -10)}"

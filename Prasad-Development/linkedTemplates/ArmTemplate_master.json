@@ -15,7 +15,19 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
 		},
+		"Sftp1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Sftp1'"
+		},
+		"storage_service_principle_servicePrincipalCredential": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalCredential' of 'storage_service_principle'"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://prasadstoragaccount.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://prasadstoragaccount.dfs.core.windows.net/"
 		},
@@ -34,6 +46,34 @@
 		"RestService_Parameter_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://dummy.restapiexample.com/api/v1/employee/"
+		},
+		"Sftp1_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "test.rebex.net"
+		},
+		"Sftp1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "demo"
+		},
+		"keyvalultlinkedservice_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://prasad-keyvalut.vault.azure.net/"
+		},
+		"storage_service_principle_properties_typeProperties_serviceEndpoint": {
+			"type": "string",
+			"defaultValue": "https://prasadstoragaccount.blob.core.windows.net/"
+		},
+		"storage_service_principle_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "23d8ee5d-d1d7-49de-87d7-df975911c692"
+		},
+		"storage_service_principle_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "471403d2-797a-4bf2-9b25-da36d62e79d2"
+		},
+		"xml_connection_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://www.w3schools.com"
 		},
 		"Trigger_bwd_properties_pipeline_parameters_windowStart": {
 			"type": "string",
@@ -96,6 +136,12 @@
 					"AzureDataLakeStorage1_accountKey": {
 						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
 					},
+					"Sftp1_password": {
+						"value": "[parameters('Sftp1_password')]"
+					},
+					"storage_service_principle_servicePrincipalCredential": {
+						"value": "[parameters('storage_service_principle_servicePrincipalCredential')]"
+					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
 					},
@@ -110,6 +156,27 @@
 					},
 					"RestService_Parameter_properties_typeProperties_url": {
 						"value": "[parameters('RestService_Parameter_properties_typeProperties_url')]"
+					},
+					"Sftp1_properties_typeProperties_host": {
+						"value": "[parameters('Sftp1_properties_typeProperties_host')]"
+					},
+					"Sftp1_properties_typeProperties_userName": {
+						"value": "[parameters('Sftp1_properties_typeProperties_userName')]"
+					},
+					"keyvalultlinkedservice_properties_typeProperties_baseUrl": {
+						"value": "[parameters('keyvalultlinkedservice_properties_typeProperties_baseUrl')]"
+					},
+					"storage_service_principle_properties_typeProperties_serviceEndpoint": {
+						"value": "[parameters('storage_service_principle_properties_typeProperties_serviceEndpoint')]"
+					},
+					"storage_service_principle_properties_typeProperties_tenant": {
+						"value": "[parameters('storage_service_principle_properties_typeProperties_tenant')]"
+					},
+					"storage_service_principle_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('storage_service_principle_properties_typeProperties_servicePrincipalId')]"
+					},
+					"xml_connection_properties_typeProperties_url": {
+						"value": "[parameters('xml_connection_properties_typeProperties_url')]"
 					}
 				}
 			},
@@ -149,6 +216,49 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AzureDataLakeStorage2_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage2_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'Prasad-Development_ArmTemplate_1')]"
+			]
+		},
+		{
+			"name": "Prasad-Development_ArmTemplate_3",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_3.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'Prasad-Development_ArmTemplate_2')]"
+			]
+		},
+		{
+			"name": "Prasad-Development_ArmTemplate_4",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_4.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
 					"Trigger_bwd_properties_pipeline_parameters_windowStart": {
 						"value": "[parameters('Trigger_bwd_properties_pipeline_parameters_windowStart')]"
 					},
@@ -173,7 +283,7 @@
 				}
 			},
 			"dependsOn": [
-				"[resourceId('Microsoft.Resources/deployments', 'Prasad-Development_ArmTemplate_1')]"
+				"[resourceId('Microsoft.Resources/deployments', 'Prasad-Development_ArmTemplate_3')]"
 			]
 		}
 	]

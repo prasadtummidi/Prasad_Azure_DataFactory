@@ -21,35 +21,27 @@
 		},
 		"schema": [
 			{
-				"name": "DatafactoryName",
 				"type": "String"
 			},
 			{
-				"name": "PipelineName",
 				"type": "String"
 			},
 			{
-				"name": "PipelineRunId",
 				"type": "String"
 			},
 			{
-				"name": "SourceTable",
 				"type": "String"
 			},
 			{
-				"name": "TargetTable",
 				"type": "String"
 			},
 			{
-				"name": "Status",
 				"type": "String"
 			},
 			{
-				"name": "code",
 				"type": "String"
 			},
 			{
-				"name": "error_message",
 				"type": "String"
 			}
 		]

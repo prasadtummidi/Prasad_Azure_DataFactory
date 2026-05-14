@@ -20,7 +20,7 @@
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
-							"wildcardFileName": "emp*.csv",
+							"wildcardFileName": "players*.csv",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {

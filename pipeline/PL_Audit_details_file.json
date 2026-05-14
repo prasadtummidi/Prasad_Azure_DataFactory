@@ -68,7 +68,7 @@
 				]
 			},
 			{
-				"name": "Error Loggingactivity",
+				"name": "Copy data1",
 				"type": "Copy",
 				"dependsOn": [
 					{
@@ -91,7 +91,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select \n'@{pipeline().DataFactory}' as DatafactoryName,\n'@{pipeline().Pipeline}' as PipelineName,\n'@{pipeline().RunId}' as PipelineRunId,\n'empnames' as SourceTable,\n'Dest_emp_files' as TargetTable,\n'@{activity('Copy_acitivity').Status}' as Status,\n'@{activity('Copy_acitivity').output.errors[0].Code}' as code,\n'@{activity('Copy_acitivity').output.errors[0].Message,'''',''}' as error_message",
+							"value": "select \n'@{pipeline().DataFactory}' as DatafactoryName,\n'@{pipeline().Pipeline}' as PipelineName,\n'@{pipeline().RunId}' as PipelineRunId,\n'empnames' as SourceTable,\n'Dest_emp_files' as TargetTable,\n'@{activity('Copy_acitivity').Status}' as Status,\n'@{activity('Copy_acitivity').output.errors[0].Code}' as code,\n'@{replace(activity('Copy_acitivity').output.errors[0].Message,'''','''''')}' as error_message",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -100,7 +100,8 @@
 					"sink": {
 						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "PreserveHierarchy"
 						},
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
@@ -109,7 +110,6 @@
 						}
 					},
 					"enableStaging": false,
-					"enableSkipIncompatibleRow": false,
 					"translator": {
 						"type": "TabularTranslator",
 						"typeConversion": true,
@@ -124,7 +124,7 @@
 						"referenceName": "sqldataset",
 						"type": "DatasetReference",
 						"parameters": {
-							"tablename": "error_logging"
+							"tablename": "emp"
 						}
 					}
 				],

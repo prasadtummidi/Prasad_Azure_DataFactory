@@ -10,18 +10,46 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "logging_error_details.txt",
+				"fileName": "logging_error_details.txt.txt",
 				"folderPath": "outputdata",
 				"fileSystem": "prasadcontainer"
 			},
 			"columnDelimiter": ";",
 			"escapeChar": "\\",
-			"firstRowAsHeader": true,
+			"firstRowAsHeader": false,
 			"quoteChar": "\""
 		},
 		"schema": [
 			{
-				"name": "Prasad-Development,PL_Audit_details_file,7fe304d2-8075-4344-841e-d000ef8750d3",
+				"name": "DatafactoryName",
+				"type": "String"
+			},
+			{
+				"name": "PipelineName",
+				"type": "String"
+			},
+			{
+				"name": "PipelineRunId",
+				"type": "String"
+			},
+			{
+				"name": "SourceTable",
+				"type": "String"
+			},
+			{
+				"name": "TargetTable",
+				"type": "String"
+			},
+			{
+				"name": "Status",
+				"type": "String"
+			},
+			{
+				"name": "code",
+				"type": "String"
+			},
+			{
+				"name": "error_message",
 				"type": "String"
 			}
 		]

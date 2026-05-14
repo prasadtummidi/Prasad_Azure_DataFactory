@@ -20,7 +20,7 @@
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
-							"wildcardFileName": "kayers*.csv",
+							"wildcardFileName": "players*.csv",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
@@ -109,7 +109,7 @@
 						}
 					},
 					"enableStaging": false,
-					"enableSkipIncompatibleRow": true,
+					"enableSkipIncompatibleRow": false,
 					"translator": {
 						"type": "TabularTranslator",
 						"typeConversion": true,

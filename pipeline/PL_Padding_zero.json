@@ -1,0 +1,65 @@
+{
+	"name": "PL_Padding_zero",
+	"properties": {
+		"activities": [
+			{
+				"name": "get_temp_value",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "temp_value",
+					"value": {
+						"value": "@substring(string(variables('init_value')),sub(length(string(variables('init_value'))),variables('paddingvalue')),variables('paddingvalue'))",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "get_temp_value",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "output_value",
+					"value": {
+						"value": "@sub(variables('init_value'),int(variables('temp_value')))",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"init_value": {
+				"type": "Integer",
+				"defaultValue": 65738
+			},
+			"paddingvalue": {
+				"type": "Integer",
+				"defaultValue": 3
+			},
+			"temp_value": {
+				"type": "String"
+			},
+			"output_value": {
+				"type": "Integer"
+			}
+		},
+		"annotations": []
+	}
+}

@@ -42,6 +42,42 @@
 						"type": "Expression"
 					}
 				}
+			},
+			{
+				"name": "log_pipeline_details",
+				"type": "Script",
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "Query",
+							"text": {
+								"value": "insert into dbo.pipeline values ('@{pipeline().Pipeline}',\n'@{pipeline().RunId}',formatDateTime(pipeline().TriggerTime),'yyyy-MM-dd HH:mm:ss'),'@{pipeline().TriggerType}',sub(formatDateTime(pipeline().TriggerTime),'yyyy-MM-dd HH:mm:ss'),formatDateTime(utcNow(),'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							}
+						}
+					],
+					"scriptBlockExecutionTimeout": "02:00:00"
+				}
 			}
 		],
 		"variables": {

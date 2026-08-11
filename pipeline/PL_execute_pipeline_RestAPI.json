@@ -17,6 +17,10 @@
 				"typeProperties": {
 					"method": "POST",
 					"url": "https://management.azure.com/subscriptions/ a2802da5-d374-447e-840f-5a4261000cb7/resourceGroups/ Prasad-Development/providers/Microsoft.DataFactory/factories/Prasad-Development/pipelines/PL_Test_Expression/createRun?api-version=2018-06-01",
+					"body": {
+						"region": "US",
+						"loadDate": "2025-01-01"
+					},
 					"authentication": {
 						"type": "MSI",
 						"resource": "https://management.azure.com"

@@ -198,6 +198,86 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Git_pipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"wildcardFileName": "*.csv",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "source_container_ADLS2",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "Archivedataset",
+								"type": "DatasetReference",
+								"parameters": {
+									"foldername": "archivedata"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/source_container_ADLS2')]",
+				"[concat(variables('factoryId'), '/datasets/Archivedataset')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Load_Josn_ArrayObjects')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -470,7 +550,7 @@
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
 									"recursive": true,
-									"wildcardFileName": "emp*.csv",
+									"wildcardFileName": "players*.csv",
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
@@ -518,7 +598,7 @@
 						]
 					},
 					{
-						"name": "Error Loggingactivity",
+						"name": "Copy data1",
 						"type": "Copy",
 						"dependsOn": [
 							{
@@ -541,7 +621,7 @@
 							"source": {
 								"type": "AzureSqlSource",
 								"sqlReaderQuery": {
-									"value": "select \n'@{pipeline().DataFactory}' as DatafactoryName,\n'@{pipeline().Pipeline}' as PipelineName,\n'@{pipeline().RunId}' as PipelineRunId,\n'empnames' as SourceTable,\n'Dest_emp_files' as TargetTable,\n'@{activity('Copy_acitivity').Status}' as Status,\n'@{activity('Copy_acitivity').output.errors[0].Code}' as code,\n'@{activity('Copy_acitivity').output.errors[0].Message,'''',''}' as error_message",
+									"value": "select \n'@{pipeline().DataFactory}' as DatafactoryName,\n'@{pipeline().Pipeline}' as PipelineName,\n'@{pipeline().RunId}' as PipelineRunId,\n'empnames' as SourceTable,\n'Dest_emp_files' as TargetTable,\n'@{activity('Copy_acitivity').Status}' as Status,\n'@{activity('Copy_acitivity').output.errors[0].Code}' as code,\n'@{replace(activity('Copy_acitivity').output.errors[0].Message,'''','''''')}' as error_message",
 									"type": "Expression"
 								},
 								"queryTimeout": "02:00:00",
@@ -550,7 +630,8 @@
 							"sink": {
 								"type": "DelimitedTextSink",
 								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
+									"type": "AzureBlobFSWriteSettings",
+									"copyBehavior": "PreserveHierarchy"
 								},
 								"formatSettings": {
 									"type": "DelimitedTextWriteSettings",
@@ -573,7 +654,7 @@
 								"referenceName": "sqldataset",
 								"type": "DatasetReference",
 								"parameters": {
-									"tablename": "error_logging"
+									"tablename": "emp"
 								}
 							}
 						],
@@ -2731,6 +2812,110 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/PL_Merge_Similarfiles')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@range(1,2)",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy data1",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": true,
+												"wildcardFileName": {
+													"value": "emp0@{item()}0.csv",
+													"type": "Expression"
+												},
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "DelimitedTextSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings",
+												"copyBehavior": "MergeFiles"
+											},
+											"formatSettings": {
+												"type": "DelimitedTextWriteSettings",
+												"quoteAllText": true,
+												"fileExtension": ".txt"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "source_dataset_foldername",
+											"type": "DatasetReference",
+											"parameters": {
+												"foldername": "inputdata"
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "archive_dataset_filename_get2",
+											"type": "DatasetReference",
+											"parameters": {
+												"foldername": "archivedata",
+												"filename": {
+													"value": "emp0@{item()}0.csv",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/source_dataset_foldername')]",
+				"[concat(variables('factoryId'), '/datasets/archive_dataset_filename_get2')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PL_Padding_zero')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -4328,6 +4513,8 @@
 					{
 						"name": "Get Metadata1",
 						"type": "GetMetadata",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
@@ -4427,6 +4614,8 @@
 					{
 						"name": "ForEach1",
 						"type": "ForEach",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "Get Metadata1",
@@ -4565,6 +4754,20 @@
 									}
 								}
 							]
+						}
+					},
+					{
+						"name": "Set variable3",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"policy": {
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "count",
+							"value": 1
 						}
 					}
 				],
@@ -6115,6 +6318,46 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/PL_execute_pipeline_RestAPI')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Call another pipeline",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"method": "POST",
+							"headers": {},
+							"url": "https://management.azure.com/subscriptions/ a2802da5-d374-447e-840f-5a4261000cb7/resourceGroups/ Prasad-Development/providers/Microsoft.DataFactory/factories/Prasad-Development/pipelines/PL_Test_Expression/createRun?api-version=2018-06-01",
+							"body": {
+								"region": "US",
+								"loadDate": "2025-01-01"
+							},
+							"authentication": {
+								"type": "MSI",
+								"resource": "https://management.azure.com"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PL_get_password_stored_keystore')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -7340,88 +7583,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy data1",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"wildcardFileName": "new*.csv",
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "Inputdata",
-								"type": "DatasetReference",
-								"parameters": {
-									"foldername": "inputdata"
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "Archivedataset",
-								"type": "DatasetReference",
-								"parameters": {
-									"foldername": "archivedata"
-								}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/Inputdata')]",
-				"[concat(variables('factoryId'), '/datasets/Archivedataset')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/Archivedataset')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -7934,7 +8095,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "logging_error_details.txt",
+						"fileName": "logging_error_details.txt.txt",
 						"folderPath": "outputdata",
 						"fileSystem": "prasadcontainer"
 					},
@@ -7945,7 +8106,27 @@
 				},
 				"schema": [
 					{
-						"name": "Prasad-Development,PL_Audit_details_file,7fe304d2-8075-4344-841e-d000ef8750d3",
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
 						"type": "String"
 					}
 				]
@@ -8780,6 +8961,13 @@
 		{
 			"name": "[concat(parameters('factoryName'), '/default')]",
 			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks",
+			"apiVersion": "2018-06-01",
+			"properties": {},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/default')]",
+			"type": "Microsoft.DataFactory/factories/globalparameters",
 			"apiVersion": "2018-06-01",
 			"properties": {},
 			"dependsOn": []

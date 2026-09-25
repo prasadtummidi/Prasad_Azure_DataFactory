@@ -1,0 +1,15 @@
+{
+	"name": "Prasad-Validation",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "70568069-6ed3-491d-8040-d8eed6384cef",
+		"tenantId": "23d8ee5d-d1d7-49de-87d7-df975911c692"
+	}
+}
